@@ -2,15 +2,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using Infrastructure.Utilities;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.AspNetCore.StaticFiles;
 using PixelChopper.Application;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace Infrastructure;
 
 public class FileUploadHandler: IUploadHandler
 {
     private const long MaxFileSize = 10L * 1024L * 1024L; // 10MB
-
     public async Task HandleUploadAsync(HttpContext context)
     {
         if (!MultipartRequestHelper.IsMultipartContentType(context.Request.ContentType))
@@ -21,7 +20,7 @@ public class FileUploadHandler: IUploadHandler
         }
 
         var boundary = MultipartRequestHelper.GetBoundary(
-            MediaTypeHeaderValue.Parse(context.Request.ContentType), int.MaxValue);
+            MediaTypeHeaderValue.Parse(context.Request.ContentType), FormOptions.DefaultMultipartBoundaryLengthLimit);
         var reader = new MultipartReader(boundary, context.Request.Body);
 
         var section = await reader.ReadNextSectionAsync();
@@ -41,13 +40,13 @@ public class FileUploadHandler: IUploadHandler
             {
                 using var targetStream = section.Body;
 
-                if (!IsValidSize(targetStream))
+                if (!(targetStream.Length <= MaxFileSize))
                 {
                     await RespondWithBadRequest(context, "File size exceeds the limit.");
                     return;
                 }
 
-                if (!IsImageFile(contentDisposition))
+                if (!MultipartRequestHelper.IsImageFile(contentDisposition))
                 {
                     await RespondWithBadRequest(context, "Invalid file type. Only image files are allowed.");
                     return;
@@ -63,33 +62,10 @@ public class FileUploadHandler: IUploadHandler
         await context.Response.WriteAsync("File uploaded successfully!");
     }
 
-    private static bool IsImageFile(ContentDispositionHeaderValue contentDisposition)
-    {
-        var provider = new FileExtensionContentTypeProvider();
-        var filename = contentDisposition.FileNameStar.Value ?? contentDisposition.FileName.Value;
-        var extension = Path.GetExtension(filename);
-
-        if (!provider.TryGetContentType(extension, out var mimeType))
-        {
-            return false;
-        }
-
-        return mimeType.StartsWith("image/");
-    }
-
-    private static bool IsValidSize(Stream stream)
-    {
-        return stream.Length <= MaxFileSize;
-    }
 
     private static async Task RespondWithBadRequest(HttpContext context, string message)
     {
         context.Response.StatusCode = 400;
         await context.Response.WriteAsync(message);
-    }
-
-    public Task HandleUploadAsync(HttpContent context)
-    {
-        throw new NotImplementedException();
     }
 }

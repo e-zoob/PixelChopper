@@ -1,4 +1,5 @@
 using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Infrastructure.Utilities
 {
@@ -35,6 +36,19 @@ namespace Infrastructure.Utilities
                 && (!string.IsNullOrEmpty(contentDisposition.FileName.Value)
                     || !string.IsNullOrEmpty(contentDisposition.FileNameStar.Value));
         }
-        
+
+        public static bool IsImageFile(ContentDispositionHeaderValue contentDisposition)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            var filename = contentDisposition.FileNameStar.Value ?? contentDisposition.FileName.Value;
+            var extension = Path.GetExtension(filename);
+
+            if (!provider.TryGetContentType(extension, out var mimeType))
+            {
+                return false;
+            }
+
+            return mimeType.StartsWith("image/");
+        }
     }
 }
