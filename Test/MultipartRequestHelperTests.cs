@@ -29,7 +29,6 @@ public class MultipartRequestHelperTests
         var lengthLimit = 100;
 
         //Act and Assert
-
         Assert.Throws<InvalidDataException>(() => MultipartRequestHelper.GetBoundary(mediaTypeHeaderValue, lengthLimit));
     }
     [Fact]
@@ -41,7 +40,6 @@ public class MultipartRequestHelperTests
         var lengthLimit = 10;
 
         //Act and Assert
-
         Assert.Throws<InvalidDataException>(() => MultipartRequestHelper.GetBoundary(mediaTypeHeaderValue, lengthLimit));
     }
 
