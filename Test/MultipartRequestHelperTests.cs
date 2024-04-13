@@ -20,7 +20,7 @@ public class MultipartRequestHelperTests
         //Assert
         Assert.Equal("----WebKitFormBoundarymx2fSWqWSd0OxQqq", result);
     }
-    //test the excpetions for GetBoundary
+
     [Fact]
     public void GetBoundary_WhenBoundaryIsMissing_ThrowsInvalidDataException()
     {
@@ -31,6 +31,7 @@ public class MultipartRequestHelperTests
         //Act and Assert
         Assert.Throws<InvalidDataException>(() => MultipartRequestHelper.GetBoundary(mediaTypeHeaderValue, lengthLimit));
     }
+    
     [Fact]
     public void GetBoundary_WhenBoundaryLengthExceedsLimit_ThrowsInvalidDataException()
     {
