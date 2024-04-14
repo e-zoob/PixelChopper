@@ -1,13 +1,16 @@
+using Application;
 using Infrastructure;
-using Infrastructure.Configuration;
 using PixelChopper.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var configs = builder.Configuration.GetSection("MyConfig");
-builder.Services.Configure<AppConfig>(configs);
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
 
 builder.Services.AddScoped<IProcessorService, ImageProcessorService>();
+builder.Services.AddScoped<IStorage, BlobStorageService>();
 
 var app = builder.Build();
 
