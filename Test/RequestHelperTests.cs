@@ -40,26 +40,52 @@ public class MultipartRequestHelperTests
     }
 
     [Fact]
-    public void IsImageFile_WhenContentDispositionIsImage_ReturnsTrue()
+    public void IsImageMimeType_WhenContentDispositionIsImage_ReturnsTrue()
     {
         // Arrange
         var contentType = "image/jpeg";
 
         // Act
-        var result = RequestHelper.IsImageFile(contentType);
+        var result = RequestHelper.IsImageMimeType(contentType);
 
         // Assert
         Assert.True(result);
     }
 
     [Fact]
-    public void IsImageFile_WhenContentDispositionIsNotImage_ReturnsFalse()
+    public void IsImageMimeType_WhenContentDispositionIsNotImage_ReturnsFalse()
     {
         // Arrange
         var contentType = "text/plain";
 
         // Act
-        var result = RequestHelper.IsImageFile(contentType);
+        var result = RequestHelper.IsImageMimeType(contentType);
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsImageFileExtension_WhenFileNameIsImage_ReturnsTrue()
+    {
+        // Arrange
+        var fileName = "image.jpg";
+
+        // Act
+        var result = RequestHelper.IsImageFileExtension(fileName);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void IsImageFileExtension_WhenFileNameIsNotImage_ReturnsFalse()
+    {
+        // Arrange
+        var fileName = "document.pdf";
+
+        // Act
+        var result = RequestHelper.IsImageFileExtension(fileName);
 
         // Assert
         Assert.False(result);

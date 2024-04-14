@@ -14,9 +14,15 @@ namespace Infrastructure.Utilities;
                     || !string.IsNullOrEmpty(contentDisposition.FileNameStar.Value));
         }
 
-        public static bool IsImageFile(string contentType)
+        public static bool IsImageMimeType(string contentType)
         {
             var imageMimeTypes = new List<string> { "image/jpeg", "image/png", "image/gif", "image/bmp", "image/svg+xml" };
             return contentType != null && imageMimeTypes.Contains(contentType);
+        }
+
+        public static bool IsImageFileExtension(string fileName)
+        {
+            var imageExtensions = new List<string> { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg" };
+            return fileName != null && imageExtensions.Contains(Path.GetExtension(fileName));
         }
     }
