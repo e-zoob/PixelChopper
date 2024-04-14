@@ -22,7 +22,8 @@ public class ImageProcessorService : IProcessorService
             throw new ArgumentException("Invalid content type. Only form data is allowed.");
         }
 
-        if (!RequestHelper.IsImageFile(file.ContentType))
+        if (!RequestHelper.IsImageMimeType(file.ContentType) || !RequestHelper.IsImageFileExtension(file.FileName))
+
         {
             throw new ArgumentException("Invalid file type. Only image files are allowed.");
         }
