@@ -11,6 +11,7 @@ if (builder.Environment.IsDevelopment())
 
 builder.Services.AddScoped<IProcessorService, ImageProcessorService>();
 builder.Services.AddScoped<IStorage, BlobStorageService>();
+builder.Services.AddScoped<INotifyService, RabbitMQNotificationService>();
 
 var app = builder.Build();
 

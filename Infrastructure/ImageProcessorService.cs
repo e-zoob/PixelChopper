@@ -9,10 +9,12 @@ namespace Infrastructure;
 public class ImageProcessorService : IProcessorService
 {
     private readonly IStorage _storage;
+    private readonly INotifyService _notifyService;
 
-    public ImageProcessorService(IStorage storage)
+    public ImageProcessorService(IStorage storage, INotifyService notifyService)
     {
-        _storage = storage;
+        _storage = storage ?? throw new ArgumentNullException(nameof(storage));
+        _notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));
     }
     private const long MaxFileSize = 10L * 1024L * 1024L; // 10MB
 
@@ -40,6 +42,7 @@ public class ImageProcessorService : IProcessorService
 
         using var stream = file.OpenReadStream();
         await _storage.StoreFileAsync(blobId, stream);
+        await _notifyService.SendMessageAsync(blobId);
     }
 
 }
