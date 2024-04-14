@@ -15,7 +15,7 @@ public class BlobStorageWorker: IStorageWorker
     public async Task<Stream> RetrieveAsync(string blobName)
     {
         var blobClient = _blobContainerClient.GetBlobClient(blobName);
-        var stream = new MemoryStream();
+        using var stream = new MemoryStream();
         var response = await blobClient.DownloadToAsync(stream);
         stream.Position = 0;
         return stream;

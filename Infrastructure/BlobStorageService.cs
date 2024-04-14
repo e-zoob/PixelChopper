@@ -29,7 +29,7 @@ namespace Infrastructure
             ArgumentNullException.ThrowIfNull(blobName);
 
             var blobClient = _blobContainerClient.GetBlobClient(blobName);
-            var stream = new MemoryStream();
+            using var stream = new MemoryStream();
             await blobClient.DownloadToAsync(stream);
             stream.Position = 0;
             return stream;

@@ -24,10 +24,12 @@ namespace Test
             
             var service = new RequestHandlerService(mockStorage.Object, mockNotifyService.Object);
 
-            // Act
-            await service.ProcessImageAsync(mockFormFile.Object);
-
-            // Assert
+            //Act
+            var result =  await service.ProcessImageAsync(mockFormFile.Object);
+            
+            //Assert
+            Assert.NotNull(result);
+            Assert.IsType<string>(result);
 
         }
 
