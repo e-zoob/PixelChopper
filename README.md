@@ -61,7 +61,7 @@ To scale this application to handle more load, consider the following:
 
 - **Web API:** The Web API can be scaled by deploying more container instances. Consider using a load balancer or API Gateway to distribute the load among the instances. Cloud services like Azure App Services can simplify the deployment and scaling process.
 
-- **Background Worker Service:** The Background Worker Service can be scaled by deploying more container instances. This service can leverage the RabbitMQ queue to handle increased load. As messages can be consumed by any worker, scaling can be as simple as adding more workers.
+- **Background Worker Service:** The Background Worker Service can be scaled by deploying more container instances. This service can leverage the RabbitMQ queue to handle increased load. As messages can be consumed by any worker, scaling can be as simple as adding more workers.RabbitMQ is quite performant and can handle a high number of messages. This allows us to limit the pressure on our image worker.
 
 
 Before making scalability decisions, it's important to have a clear understanding of the application's behavior under different circumstances. This can be achieved through observability using tools like Application Insights or Datadog to collect logs, metrics and traces.
