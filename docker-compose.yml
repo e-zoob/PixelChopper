@@ -1,7 +1,15 @@
 services:
-  your-service-name:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  web:
     image: pixelchopper
     ports:
       - "8080:80"
+    depends_on:
+      - rabbitmq
     env_file:
       - .env

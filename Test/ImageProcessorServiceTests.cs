@@ -15,13 +15,14 @@ namespace Test
             // Arrange
             var mockFormFile = new Mock<IFormFile>();
             var mockStorage = new Mock<IStorage>();
+            var mockNotifyService = new Mock<INotifyService>();
 
             mockFormFile.Setup(f => f.Length).Returns(MaxFileSize - 1);
             mockFormFile.Setup(f => f.ContentType).Returns("image/jpeg");
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.jpg\"");
             mockFormFile.Setup(f => f.FileName).Returns("test.jpg");
             
-            var service = new ImageProcessorService(mockStorage.Object);
+            var service = new ImageProcessorService(mockStorage.Object, mockNotifyService.Object);
 
             // Act
             await service.ProcessImageAsync(mockFormFile.Object);
@@ -36,12 +37,13 @@ namespace Test
             // Arrange
             var mockFormFile = new Mock<IFormFile>();
             var mockStorage = new Mock<IStorage>();
+            var mockNotifyService = new Mock<INotifyService>();
 
             mockFormFile.Setup(f => f.Length).Returns(MaxFileSize + 1);
             mockFormFile.Setup(f => f.ContentType).Returns("image/jpeg");
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.jpg\"");
 
-            var service = new ImageProcessorService(mockStorage.Object);
+            var service = new ImageProcessorService(mockStorage.Object, mockNotifyService.Object);
 
             // Act
             async Task Act() => await service.ProcessImageAsync(mockFormFile.Object);
@@ -56,12 +58,13 @@ namespace Test
             // Arrange
             var mockFormFile = new Mock<IFormFile>();
             var mockStorage = new Mock<IStorage>();
+            var mockNotifyService = new Mock<INotifyService>();
 
             mockFormFile.Setup(f => f.Length).Returns(MaxFileSize - 1);
             mockFormFile.Setup(f => f.ContentType).Returns("application/json");
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.jpg\"");
 
-            var service = new ImageProcessorService(mockStorage.Object);
+            var service = new ImageProcessorService(mockStorage.Object, mockNotifyService.Object);
 
             // Act
             async Task Act() => await service.ProcessImageAsync(mockFormFile.Object);
@@ -76,12 +79,13 @@ namespace Test
             // Arrange
             var mockFormFile = new Mock<IFormFile>();
             var mockStorage = new Mock<IStorage>();
+            var mockNotifyService = new Mock<INotifyService>();
 
             mockFormFile.Setup(f => f.Length).Returns(MaxFileSize - 1);
             mockFormFile.Setup(f => f.ContentType).Returns("image/jpeg");
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.txt\"");
 
-            var service = new ImageProcessorService(mockStorage.Object);
+            var service = new ImageProcessorService(mockStorage.Object, mockNotifyService.Object);
 
             // Act
             async Task Act() => await service.ProcessImageAsync(mockFormFile.Object);
