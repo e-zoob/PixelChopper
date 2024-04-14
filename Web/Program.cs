@@ -1,7 +1,11 @@
 using Infrastructure;
+using Infrastructure.Configuration;
 using PixelChopper.Application;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var configs = builder.Configuration.GetSection("MyConfig");
+builder.Services.Configure<AppConfig>(configs);
 
 builder.Services.AddScoped<IProcessorService, ImageProcessorService>();
 
