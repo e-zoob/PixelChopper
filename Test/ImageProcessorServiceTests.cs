@@ -5,7 +5,7 @@ using Moq;
 
 namespace Test
 {
-    public class ImageProcessorServiceTests
+    public class RequestHandlerServiceTests
     {
         private const long MaxFileSize = 10L * 1024L * 1024L; // 10MB
 
@@ -22,7 +22,7 @@ namespace Test
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.jpg\"");
             mockFormFile.Setup(f => f.FileName).Returns("test.jpg");
             
-            var service = new ImageProcessorService(mockStorage.Object, mockNotifyService.Object);
+            var service = new RequestHandlerService(mockStorage.Object, mockNotifyService.Object);
 
             // Act
             await service.ProcessImageAsync(mockFormFile.Object);
@@ -43,7 +43,7 @@ namespace Test
             mockFormFile.Setup(f => f.ContentType).Returns("image/jpeg");
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.jpg\"");
 
-            var service = new ImageProcessorService(mockStorage.Object, mockNotifyService.Object);
+            var service = new RequestHandlerService(mockStorage.Object, mockNotifyService.Object);
 
             // Act
             async Task Act() => await service.ProcessImageAsync(mockFormFile.Object);
@@ -64,7 +64,7 @@ namespace Test
             mockFormFile.Setup(f => f.ContentType).Returns("application/json");
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.jpg\"");
 
-            var service = new ImageProcessorService(mockStorage.Object, mockNotifyService.Object);
+            var service = new RequestHandlerService(mockStorage.Object, mockNotifyService.Object);
 
             // Act
             async Task Act() => await service.ProcessImageAsync(mockFormFile.Object);
@@ -85,7 +85,7 @@ namespace Test
             mockFormFile.Setup(f => f.ContentType).Returns("image/jpeg");
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.txt\"");
 
-            var service = new ImageProcessorService(mockStorage.Object, mockNotifyService.Object);
+            var service = new RequestHandlerService(mockStorage.Object, mockNotifyService.Object);
 
             // Act
             async Task Act() => await service.ProcessImageAsync(mockFormFile.Object);

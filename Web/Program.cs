@@ -9,7 +9,7 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.AddUserSecrets<Program>();
 }
 
-builder.Services.AddScoped<IProcessorService, ImageProcessorService>();
+builder.Services.AddScoped<IProcessorService, RequestHandlerService>();
 builder.Services.AddScoped<IStorage, BlobStorageService>();
 builder.Services.AddScoped<INotifyService, RabbitMQNotificationService>();
 

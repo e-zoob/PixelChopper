@@ -7,12 +7,12 @@ using Common;
 
 namespace Infrastructure;
 
-public class ImageProcessorService : IProcessorService
+public class RequestHandlerService : IProcessorService
 {
     private readonly IStorage _storage;
     private readonly INotifyService _notifyService;
 
-    public ImageProcessorService(IStorage storage, INotifyService notifyService)
+    public RequestHandlerService(IStorage storage, INotifyService notifyService)
     {
         _storage = storage ?? throw new ArgumentNullException(nameof(storage));
         _notifyService = notifyService ?? throw new ArgumentNullException(nameof(notifyService));
