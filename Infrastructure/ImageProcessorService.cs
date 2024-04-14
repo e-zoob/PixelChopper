@@ -23,6 +23,7 @@ public class ImageProcessorService : IProcessorService
         }
 
         if (!RequestHelper.IsImageMimeType(file.ContentType) || !RequestHelper.IsImageFileExtension(file.FileName))
+
         {
             throw new ArgumentException("Invalid file type. Only image files are allowed.");
         }

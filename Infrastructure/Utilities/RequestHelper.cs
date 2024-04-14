@@ -15,6 +15,7 @@ namespace Infrastructure.Utilities;
         }
 
         public static bool IsImageMimeType(string contentType)
+
         {
             var imageMimeTypes = new List<string> { "image/jpeg", "image/png", "image/gif", "image/bmp", "image/svg+xml" };
             return contentType != null && imageMimeTypes.Contains(contentType);
@@ -25,4 +26,5 @@ namespace Infrastructure.Utilities;
             var imageExtensions = new List<string> { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg" };
             return fileName != null && imageExtensions.Contains(Path.GetExtension(fileName));
         }
+
     }

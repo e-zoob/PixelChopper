@@ -40,6 +40,7 @@ public class MultipartRequestHelperTests
     }
 
     [Fact]
+
     public void IsImageMimeType_WhenContentDispositionIsImage_ReturnsTrue()
     {
         // Arrange
@@ -54,6 +55,7 @@ public class MultipartRequestHelperTests
 
     [Fact]
     public void IsImageMimeType_WhenContentDispositionIsNotImage_ReturnsFalse()
+
     {
         // Arrange
         var contentType = "text/plain";
