@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Net.Http.Headers;
 using Moq;
 
 namespace Test
@@ -21,6 +18,7 @@ namespace Test
             mockFormFile.Setup(f => f.Length).Returns(MaxFileSize - 1);
             mockFormFile.Setup(f => f.ContentType).Returns("image/jpeg");
             mockFormFile.Setup(f => f.ContentDisposition).Returns("form-data; name=\"file\"; filename=\"test.jpg\"");
+            mockFormFile.Setup(f => f.FileName).Returns("test.jpg");
 
             var service = new ImageProcessorService();
 
