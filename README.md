@@ -59,7 +59,7 @@ To use this application in a production environment, consider the following:
 
 To scale this application to handle more load, consider the following:
 
-- **Web API:** The Web API can be scaled by deploying more container instances. This can be managed using an orchestration software like Kubernetes. Consider using a load balancer or API Gateway to distribute the load among the instances. Cloud services like Azure App Services can simplify the deployment and scaling process.
+- **Web API:** The Web API can be scaled by deploying more container instances. Consider using a load balancer or API Gateway to distribute the load among the instances. Cloud services like Azure App Services can simplify the deployment and scaling process.
 
 - **Background Worker Service:** The Background Worker Service can be scaled by deploying more container instances. This service can leverage the RabbitMQ queue to handle increased load. As messages can be consumed by any worker, scaling can be as simple as adding more workers.
 
