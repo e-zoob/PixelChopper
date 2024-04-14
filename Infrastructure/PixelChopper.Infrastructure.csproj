@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\PixelChopper.Application.csproj" />
+    <ProjectReference Include="..\Common\PixelChopper.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

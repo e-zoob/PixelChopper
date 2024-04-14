@@ -3,6 +3,7 @@ using Infrastructure.Utilities;
 using PixelChopper.Application;
 using Microsoft.Net.Http.Headers;
 using Application;
+using Common;
 
 namespace Infrastructure;
 
@@ -18,7 +19,7 @@ public class ImageProcessorService : IProcessorService
     }
     private const long MaxFileSize = 10L * 1024L * 1024L; // 10MB
 
-    public async Task ProcessImageAsync(IFormFile file)
+    public async Task<string> ProcessImageAsync(IFormFile file)
     {
         ArgumentNullException.ThrowIfNull(file);
 
@@ -38,11 +39,14 @@ public class ImageProcessorService : IProcessorService
             throw new ArgumentException("Invalid file type. Only image files are allowed.");
         }
 
-        var blobId = Guid.NewGuid().ToString();
+        var originaBlobId = Guid.NewGuid().ToString();
+        var toBeResizedBlobId = Guid.NewGuid().ToString();
 
         using var stream = file.OpenReadStream();
-        await _storage.StoreFileAsync(blobId, stream);
-        await _notifyService.SendMessageAsync(blobId);
+        await _storage.StoreFileAsync(originaBlobId, stream);
+        var message = new BlobMessage(originaBlobId, toBeResizedBlobId);
+        await _notifyService.SendMessageAsync(message);
+        return await Task.FromResult(toBeResizedBlobId);
     }
 
 }

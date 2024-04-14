@@ -19,8 +19,8 @@ app.MapPost("/api/resize", async (IFormFile file, IProcessorService uploadHandle
 {
     try
     {
-        await uploadHandler.ProcessImageAsync(file);
-        return Results.Ok();
+        var blobId = await uploadHandler.ProcessImageAsync(file);
+        return Results.Accepted($"/api/image/{blobId}");
     }
     catch (ArgumentException ex)
     {
@@ -29,4 +29,17 @@ app.MapPost("/api/resize", async (IFormFile file, IProcessorService uploadHandle
 
     
 }).DisableAntiforgery();
+
+app.MapGet("/api/image/{id}", async (string id, IStorage storageService) =>
+{
+    try
+    {
+        var imageStream = await storageService.RetrieveFileAsync(id);
+        return Results.File(imageStream, "image/jpeg");
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.NotFound(ex.Message);
+    }
+});
 app.Run();

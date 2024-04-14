@@ -1,6 +1,7 @@
+using Common;
 namespace Application;
 
 public interface INotifyService
 {
-    public Task SendMessageAsync(string message);
+    public Task SendMessageAsync(BlobMessage message);
 }

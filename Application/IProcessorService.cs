@@ -4,5 +4,5 @@ namespace PixelChopper.Application;
 
 public interface IProcessorService
 {
-    public Task ProcessImageAsync(IFormFile file);
+    public Task<string> ProcessImageAsync(IFormFile file);
 }

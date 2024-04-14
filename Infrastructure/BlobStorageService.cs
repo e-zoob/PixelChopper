@@ -24,5 +24,16 @@ namespace Infrastructure
             await blobClient.UploadAsync(content);
         }
 
+        public async Task<Stream> RetrieveFileAsync(string blobName)
+        {
+            ArgumentNullException.ThrowIfNull(blobName);
+
+            var blobClient = _blobContainerClient.GetBlobClient(blobName);
+            var stream = new MemoryStream();
+            await blobClient.DownloadToAsync(stream);
+            stream.Position = 0;
+            return stream;
+        }
+
     }
 }

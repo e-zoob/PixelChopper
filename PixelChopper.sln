@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelChopper.Web", "Web\Pix
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelChopper.Test", "Test\PixelChopper.Test.csproj", "{12745849-7124-40C0-BFAC-BC08580819DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelChopper.Common", "Common\PixelChopper.Common.csproj", "{F7351197-9F82-4167-840C-7586A0FC2E61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{12745849-7124-40C0-BFAC-BC08580819DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12745849-7124-40C0-BFAC-BC08580819DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12745849-7124-40C0-BFAC-BC08580819DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7351197-9F82-4167-840C-7586A0FC2E61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7351197-9F82-4167-840C-7586A0FC2E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7351197-9F82-4167-840C-7586A0FC2E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7351197-9F82-4167-840C-7586A0FC2E61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
