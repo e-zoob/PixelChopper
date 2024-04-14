@@ -2,12 +2,20 @@ using Microsoft.AspNetCore.Http;
 using Infrastructure.Utilities;
 using PixelChopper.Application;
 using Microsoft.Net.Http.Headers;
+using Application;
 
 namespace Infrastructure;
 
 public class ImageProcessorService : IProcessorService
 {
+    private readonly IStorage _storage;
+
+    public ImageProcessorService(IStorage storage)
+    {
+        _storage = storage;
+    }
     private const long MaxFileSize = 10L * 1024L * 1024L; // 10MB
+
     public async Task ProcessImageAsync(IFormFile file)
     {
         ArgumentNullException.ThrowIfNull(file);
@@ -28,8 +36,10 @@ public class ImageProcessorService : IProcessorService
             throw new ArgumentException("Invalid file type. Only image files are allowed.");
         }
 
-        using var targetStream = new MemoryStream();
-        await file.CopyToAsync(targetStream);
+        var blobId = Guid.NewGuid().ToString();
+
+        using var stream = file.OpenReadStream();
+        await _storage.StoreFileAsync(blobId, stream);
     }
 
 }

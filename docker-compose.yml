@@ -1,0 +1,7 @@
+services:
+  your-service-name:
+    image: pixelchopper
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
