@@ -65,3 +65,19 @@ To scale this application to handle more load, consider the following:
 
 
 Before making scalability decisions, it's important to have a clear understanding of the application's behavior under different circumstances. This can be achieved through observability using tools like Application Insights or Datadog to collect logs, metrics and traces.
+
+## Testing with Postman
+
+You can test this application locally using Postman. Follow these steps:
+
+1. **Start the application:** Run the application locally. By default, it should be accessible at `http://localhost:8000`.
+
+2. **Create a new request in Postman:** Open Postman, click on the `+` button to create a new tab, and then click on the `Request` button to create a new request.
+
+3. **Set the request method and URL:** In the new request tab, set the request method to `POST` and set the URL to `http://localhost:8000/api/images`.
+
+4. **Set the request body:** In the `Body` tab, select `form-data`. In the key-value editor that appears, enter `file` as the key, select `File` from the dropdown on the right, and then choose the image file you want to send.
+
+5. **Send the request:** Click on the `Send` button to send the request to the API endpoint.
+
+6. **Check the response:** After sending the request, check the response in the lower part of the request tab. The status code and the response body can give you information about whether the request was successful and what the API endpoint did. If the request was successful, the response body will contain a URL that you can use to retrieve the resized image from the `GET /api/images/{blobName}` endpoint.
